@@ -104,6 +104,11 @@
             border-radius: 12px;
             font-size: 1.3rem;
             line-height: 1.8;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
         }
 
         .section .exercise strong {
@@ -198,53 +203,62 @@
 
         /* Section 1: Title - #050505 bg, white text (ratio ~20:1) */
         .section-1 { background: #050505; color: #ffffff; }
-        .section-1 .exercise { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); }
         .section-1 ul li::before { background: rgba(255,255,255,0.5); }
 
         /* Section 2: How it works - #111 bg, white text (ratio ~17.6:1) */
         .section-2 { background: #111111; color: #ffffff; }
-        .section-2 .exercise { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); }
         .section-2 ul li::before { background: rgba(255,255,255,0.5); }
 
         /* Section 3: Get started - #1c1c1c bg, white text (ratio ~15.4:1) */
         .section-3 { background: #1c1c1c; color: #ffffff; }
-        .section-3 .exercise { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); }
         .section-3 ul li::before { background: rgba(255,255,255,0.5); }
 
         /* Section 4: Name your fear - #282828 bg, white text (ratio ~12.8:1) */
         .section-4 { background: #282828; color: #ffffff; }
-        .section-4 .exercise { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); }
         .section-4 ul li::before { background: rgba(255,255,255,0.5); }
 
         /* Section 5: Define - #353535 bg, white text (ratio ~10.3:1) */
         .section-5 { background: #353535; color: #ffffff; }
-        .section-5 .exercise { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); }
         .section-5 ul li::before { background: rgba(255,255,255,0.5); }
 
         /* Section 6: Prevent - #444 bg, white text (ratio ~8.1:1) */
         .section-6 { background: #444444; color: #ffffff; }
-        .section-6 .exercise { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); }
         .section-6 ul li::before { background: rgba(255,255,255,0.5); }
 
         /* Section 7: Repair - #555 bg, white text (ratio ~6.0:1) */
         .section-7 { background: #555555; color: #ffffff; }
-        .section-7 .exercise { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); }
         .section-7 ul li::before { background: rgba(255,255,255,0.6); }
+
+        .section-1 .exercise,
+        .section-2 .exercise,
+        .section-3 .exercise,
+        .section-4 .exercise,
+        .section-5 .exercise,
+        .section-6 .exercise,
+        .section-7 .exercise {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
 
         /* Section 8: Benefits - #c8c8c8 bg, dark text (ratio ~11.9:1) */
         .section-8 { background: #c8c8c8; color: #111111; }
-        .section-8 .exercise { background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.1); }
         .section-8 ul li::before { background: rgba(0,0,0,0.5); }
 
         /* Section 9: Costs - #dedede bg, dark text (ratio ~14.4:1) */
         .section-9 { background: #dedede; color: #111111; }
-        .section-9 .exercise { background: rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.08); }
         .section-9 ul li::before { background: rgba(0,0,0,0.5); }
 
         /* Section 10: Reflection - #eeeeee bg, dark text (ratio ~16.5:1) */
         .section-10 { background: #eeeeee; color: #111111; }
-        .section-10 .exercise { background: rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.07); }
         .section-10 ul li::before { background: rgba(0,0,0,0.5); }
+
+        .section-8 .exercise,
+        .section-9 .exercise,
+        .section-10 .exercise {
+            background: rgba(255, 255, 255, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.75);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+        }
 
         /* Section 11: Thanks - #f8f8f8 bg, dark text (ratio ~18:1) */
         .section-11 { background: #f8f8f8; color: #111111; }
@@ -510,9 +524,9 @@
             <p class="label">Step 5 of 5</p>
             <h2>Costs</h2>
             <p class="italic">What are the costs of inaction?</p>
-            <p>Think about the costs of staying in your current situation. Write down what could happen if you don't take action soon:</p>
             <div class="exercise">
                 <strong>Exercise</strong>
+                <p>Think about the costs of staying in your current situation. Write down what could happen if you don't take action soon:</p>
                 <ul class="time-perspectives">
                     <li>If I do nothing, in 6 months&hellip;</li>
                     <li>If I do nothing, in one year&hellip;</li>
