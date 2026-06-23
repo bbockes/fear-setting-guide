@@ -7,14 +7,16 @@
     <meta name="description" content="An interactive guide to Tim Ferriss's fear-setting exercise. Define the worst case, prevent it, repair it, and discover that action beats inaction.">
     <meta property="og:title" content="Fear Setting Guide">
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bbockes.github.io/fear-setting-guide/">
     <meta property="og:description" content="An interactive guide to Tim Ferriss's fear-setting exercise. Define the worst case, prevent it, repair it, and discover that action beats inaction.">
-    <meta property="og:image" content="og_image.png">
+    <meta property="og:image" content="https://bbockes.github.io/fear-setting-guide/og_image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Fear Setting Guide">
     <meta name="twitter:description" content="An interactive guide to Tim Ferriss's fear-setting exercise. Define the worst case, prevent it, repair it, and discover that action beats inaction.">
-    <meta name="twitter:image" content="og_image.png">
+    <meta name="twitter:image" content="https://bbockes.github.io/fear-setting-guide/og_image.png">
+    <link rel="canonical" href="https://bbockes.github.io/fear-setting-guide/">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -51,6 +53,15 @@
             width: 100%;
             position: relative;
             z-index: 3;
+        }
+
+        .title-prefix {
+            display: block;
+            font-size: 1.6rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            opacity: 0.7;
+            margin-bottom: 0.3rem;
         }
 
         .section h1 {
@@ -164,17 +175,6 @@
             height: 100vh;
             pointer-events: none;
             z-index: 1;
-        }
-
-        #smoke-vignette {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 2;
-            background: radial-gradient(ellipse 100% 100% at center, transparent 85%, rgba(0,0,0,0.7) 93%, rgba(0,0,0,1) 100%);
         }
 
 
@@ -388,7 +388,6 @@
 <body>
 
     <canvas id="smoke-canvas" aria-hidden="true"></canvas>
-    <div id="smoke-vignette" aria-hidden="true"></div>
 
     <!-- Section 1: Title -->
     <section class="section section-1">
@@ -564,9 +563,11 @@
         var ctx = canvas.getContext('2d');
         var W, H;
         var particles = [];
-        var PARTICLE_COUNT = 220;
-        var SPRITE_SIZE = 80;
+        var PARTICLE_COUNT = 500;
+        var SPRITE_SIZE = 96;
         var smokeOpacity = 1;
+        var vignetteOpacity = 1;
+        var section1 = document.querySelector('.section-1');
 
         function resize() {
             W = canvas.width = window.innerWidth;
@@ -606,15 +607,15 @@
             var startScale = rand(0.3, 1.0);
             var moveAngle = rand(0, Math.PI * 2);
             var speed = rand(0.1, 0.4);
-            var spawnX = W / 2 + gaussRand() * W * 0.22;
-            var spawnY = H / 2 + gaussRand() * H * 0.25;
+            var spawnX = W / 2 + gaussRand() * W * 0.4;
+            var spawnY = H / 2 + gaussRand() * H * 0.4;
             return {
                 x: spawnX,
                 y: spawnY,
                 vx: Math.cos(moveAngle) * speed,
                 vy: Math.sin(moveAngle) * speed,
                 scale: startScale,
-                finalScale: startScale + rand(3, 9),
+                finalScale: startScale + rand(4, 10),
                 age: seed ? rand(0, 14000) : 0,
                 lifetime: rand(10000, 20000),
                 drift: rand(-0.2, 0.2),
@@ -671,6 +672,25 @@
         window.addEventListener('scroll', updateRepulsionZones, { passive: true });
         window.addEventListener('resize', updateRepulsionZones, { passive: true });
 
+        var section8 = document.querySelector('.section-8');
+        var section11 = document.querySelector('.section-11');
+        var darkSections = document.querySelectorAll('.section-1, .section-2, .section-3, .section-4, .section-5, .section-6, .section-7');
+
+        function getSmokeVisibilityBoost() {
+            var midY = H / 2;
+            for (var i = 0; i < darkSections.length; i++) {
+                var rect = darkSections[i].getBoundingClientRect();
+                if (rect.top <= midY && rect.bottom >= midY) {
+                    if (darkSections[i].classList.contains('section-7')) return 1.35;
+                    if (darkSections[i].classList.contains('section-6')) return 1.25;
+                    if (darkSections[i].classList.contains('section-5')) return 1.18;
+                    if (darkSections[i].classList.contains('section-4')) return 1.1;
+                    return 1;
+                }
+            }
+            return 1;
+        }
+
         function frame(time) {
             if (!running) return;
             var dt = Math.min(time - lastTime, 50);
@@ -681,6 +701,8 @@
 
             ctx.clearRect(0, 0, W, H);
             ctx.globalCompositeOperation = 'source-over';
+
+            var visibilityBoost = getSmokeVisibilityBoost();
 
             for (var i = 0; i < particles.length; i++) {
                 var p = particles[i];
@@ -747,7 +769,7 @@
                 } else {
                     alpha = 1;
                 }
-                alpha *= 0.25 * smokeOpacity;
+                alpha *= 0.42 * smokeOpacity * visibilityBoost;
 
                 if (alpha > 0.001) {
                     var size = p.scale * SPRITE_SIZE;
@@ -761,6 +783,20 @@
                 }
             }
 
+            if (vignetteOpacity > 0.001) {
+                ctx.globalAlpha = vignetteOpacity;
+                ctx.globalCompositeOperation = 'source-over';
+                var vigGrad = ctx.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, Math.max(W, H) * 0.52);
+                vigGrad.addColorStop(0, 'rgba(0,0,0,0)');
+                vigGrad.addColorStop(0.45, 'rgba(0,0,0,0)');
+                vigGrad.addColorStop(0.62, 'rgba(0,0,0,0.3)');
+                vigGrad.addColorStop(0.78, 'rgba(0,0,0,0.7)');
+                vigGrad.addColorStop(0.88, 'rgba(0,0,0,0.95)');
+                vigGrad.addColorStop(1, 'rgba(0,0,0,1)');
+                ctx.fillStyle = vigGrad;
+                ctx.fillRect(0, 0, W, H);
+            }
+
             ctx.globalAlpha = 1;
             requestAnimationFrame(frame);
         }
@@ -768,20 +804,36 @@
         requestAnimationFrame(frame);
 
         // Scroll-based fade: smoke disappears as user scrolls down
-        var vignette = document.getElementById('smoke-vignette');
-
         function updateSmokeOpacity() {
-            var totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-            var progress = window.scrollY / totalHeight;
-            var fadeStart = 0.65;
-            var fadeEnd = 1.0;
-            if (progress < fadeStart) {
-                smokeOpacity = 1;
+            var totalHeight = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+            var scrollY = window.scrollY;
+
+            if (section8 && section11) {
+                var fadeBegin = Math.max(0, section8.offsetTop - window.innerHeight * 0.35);
+                var fadeEnd = section11.offsetTop;
+                if (scrollY <= fadeBegin) {
+                    smokeOpacity = 1;
+                } else if (scrollY >= fadeEnd) {
+                    smokeOpacity = 0;
+                } else {
+                    smokeOpacity = Math.max(0, 1 - (scrollY - fadeBegin) / (fadeEnd - fadeBegin));
+                }
             } else {
-                smokeOpacity = Math.max(0, 1 - ((progress - fadeStart) / (fadeEnd - fadeStart)));
+                smokeOpacity = Math.max(0, 1 - scrollY / totalHeight);
             }
 
-            vignette.style.opacity = smokeOpacity;
+            if (section1) {
+                var rect = section1.getBoundingClientRect();
+                var vh = window.innerHeight;
+                if (rect.bottom <= 0 || rect.top >= vh) {
+                    vignetteOpacity = 0;
+                } else {
+                    var fade = Math.min(1, rect.bottom / (vh * 0.6));
+                    vignetteOpacity = fade;
+                }
+            } else {
+                vignetteOpacity = 0;
+            }
 
             if (smokeOpacity <= 0 && running) {
                 running = false;
