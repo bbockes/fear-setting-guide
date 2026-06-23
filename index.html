@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fear Setting Guide</title>
+    <meta name="description" content="A step-by-step guide for defining your fears and learning how to move forward from them.">
+    <meta property="og:title" content="Fear Setting Guide">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="A step-by-step guide for defining your fears and learning how to move forward from them.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 24px;
+            overflow: hidden;
+            transition: background-color 0.3s ease;
+        }
+
+        .section-content {
+            max-width: 680px;
+            width: 100%;
+            position: relative;
+            z-index: 3;
+        }
+
+        .section h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .section h2 {
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            margin-bottom: 1.25rem;
+            text-shadow: 0 0 15px rgba(0,0,0,0.4);
+        }
+
+        .section p {
+            font-size: 1.125rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(0,0,0,0.3);
+        }
+
+        .section .label {
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            opacity: 0.85;
+        }
+
+        .section .exercise {
+            margin-top: 2rem;
+            padding: 1.5rem 2rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .section .exercise strong {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .section .italic {
+            font-style: italic;
+            font-size: 1.25rem;
+            font-weight: 300;
+            opacity: 0.95;
+            margin-bottom: 0.75rem;
+        }
+
+        .section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .section ul li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .section ul li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            opacity: 0.5;
+            animation: bounce 2s ease infinite;
+        }
+
+        .scroll-hint svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+        }
+
+        /* === SMOKE CANVAS === */
+        #smoke-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        #smoke-vignette {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 2;
+            background: radial-gradient(ellipse 100% 100% at center, transparent 85%, rgba(0,0,0,0.7) 93%, rgba(0,0,0,1) 100%);
+        }
+
+
+        /* === SECTION BACKGROUNDS & COLORS === */
+        /* 
+         * WCAG AA contrast ratios (4.5:1 minimum for body text):
+         * Sections 1-7: Dark bg + #ffffff text
+         * Sections 8-11: Light bg + #111111 text
+         */
+
+        /* Section 1: Title - #050505 bg, white text (ratio ~20:1) */
+        .section-1 { background: #050505; color: #ffffff; }
+        .section-1 .exercise { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); }
+        .section-1 ul li::before { background: rgba(255,255,255,0.5); }
+
+        /* Section 2: How it works - #111 bg, white text (ratio ~17.6:1) */
+        .section-2 { background: #111111; color: #ffffff; }
+        .section-2 .exercise { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); }
+        .section-2 ul li::before { background: rgba(255,255,255,0.5); }
+
+        /* Section 3: Get started - #1c1c1c bg, white text (ratio ~15.4:1) */
+        .section-3 { background: #1c1c1c; color: #ffffff; }
+        .section-3 .exercise { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); }
+        .section-3 ul li::before { background: rgba(255,255,255,0.5); }
+
+        /* Section 4: Name your fear - #282828 bg, white text (ratio ~12.8:1) */
+        .section-4 { background: #282828; color: #ffffff; }
+        .section-4 .exercise { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); }
+        .section-4 ul li::before { background: rgba(255,255,255,0.5); }
+
+        /* Section 5: Define - #353535 bg, white text (ratio ~10.3:1) */
+        .section-5 { background: #353535; color: #ffffff; }
+        .section-5 .exercise { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); }
+        .section-5 ul li::before { background: rgba(255,255,255,0.5); }
+
+        /* Section 6: Prevent - #444 bg, white text (ratio ~8.1:1) */
+        .section-6 { background: #444444; color: #ffffff; }
+        .section-6 .exercise { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); }
+        .section-6 ul li::before { background: rgba(255,255,255,0.5); }
+
+        /* Section 7: Repair - #555 bg, white text (ratio ~6.0:1) */
+        .section-7 { background: #555555; color: #ffffff; }
+        .section-7 .exercise { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); }
+        .section-7 ul li::before { background: rgba(255,255,255,0.6); }
+
+        /* Section 8: Benefits - #c8c8c8 bg, dark text (ratio ~11.9:1) */
+        .section-8 { background: #c8c8c8; color: #111111; }
+        .section-8 .exercise { background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.1); }
+        .section-8 ul li::before { background: rgba(0,0,0,0.5); }
+
+        /* Section 9: Costs - #dedede bg, dark text (ratio ~14.4:1) */
+        .section-9 { background: #dedede; color: #111111; }
+        .section-9 .exercise { background: rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.08); }
+        .section-9 ul li::before { background: rgba(0,0,0,0.5); }
+
+        /* Section 10: Reflection - #eeeeee bg, dark text (ratio ~16.5:1) */
+        .section-10 { background: #eeeeee; color: #111111; }
+        .section-10 .exercise { background: rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.07); }
+        .section-10 ul li::before { background: rgba(0,0,0,0.5); }
+
+        /* Section 11: Thanks - #f8f8f8 bg, dark text (ratio ~18:1) */
+        .section-11 { background: #f8f8f8; color: #111111; }
+
+        .section-8 h1, .section-8 h2, .section-8 p,
+        .section-9 h1, .section-9 h2, .section-9 p,
+        .section-10 h1, .section-10 h2, .section-10 p,
+        .section-11 h1, .section-11 h2, .section-11 p {
+            text-shadow: none;
+        }
+
+        .section-11 {
+            background: #ffffff !important;
+        }
+
+        .quote {
+            margin: 2rem 0;
+            padding-left: 1.5rem;
+            border-left: 3px solid currentColor;
+            opacity: 0.8;
+        }
+
+        .quote p {
+            font-size: 1.3rem;
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        .quote cite {
+            display: block;
+            font-size: 0.9rem;
+            font-style: normal;
+            margin-top: 0.5rem;
+            opacity: 0.7;
+        }
+
+        .step-list {
+            margin: 1.5rem 0;
+        }
+
+        .step-list li {
+            padding: 0.75rem 0 0.75rem 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .step-list li strong {
+            font-weight: 600;
+        }
+
+        .note {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-top: 1rem;
+            font-style: italic;
+        }
+
+        .credit {
+            font-size: 0.85rem;
+            opacity: 0.5;
+            margin-top: 2rem;
+        }
+
+        .credit a {
+            color: inherit;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-thickness: 1px;
+        }
+
+        a:hover {
+            opacity: 0.7;
+        }
+
+        .time-perspectives {
+            margin-top: 1rem;
+        }
+
+        .time-perspectives li {
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        /* Scroll-triggered fade-in */
+        .section-content {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .section-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 640px) {
+            .section {
+                padding: 60px 20px;
+            }
+
+            .section .exercise {
+                padding: 1.25rem 1.5rem;
+            }
+
+            .section p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="smoke-canvas" aria-hidden="true"></canvas>
+    <div id="smoke-vignette" aria-hidden="true"></div>
+
+    <!-- Section 1: Title -->
+    <section class="section section-1">
+        <div class="section-content">
+            <h1>Fear Setting Guide</h1>
+            <p>'Fear-setting' is a process for defining your fears, and discovering how you can move forward from them. By helping you express what you value and what's at stake, fear setting can help walk you through the ambiguity of a difficult decision.</p>
+            <p class="note">*Fear setting was made famous by Tim Ferriss in his <a href="https://www.ted.com/talks/tim_ferriss_why_you_should_define_your_fears_instead_of_your_goals" target="_blank" rel="noopener">TED talk</a>. Read more about it <a href="https://tim.blog/2017/05/15/fear-setting/" target="_blank" rel="noopener">here</a>.</p>
+        </div>
+        <div class="scroll-hint" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 13l5 5 5-5"/><path d="M7 6l5 5 5-5"/></svg>
+        </div>
+    </section>
+
+    <!-- Section 2: How it works -->
+    <section class="section section-2">
+        <div class="section-content">
+            <p class="label">Overview</p>
+            <h2>How does it work?</h2>
+            <p>Choose a fear to work through as you go through the following 5 stages:</p>
+            <ul class="step-list">
+                <li><strong>Define</strong> &mdash; What's the worst that could happen?</li>
+                <li><strong>Prevent</strong> &mdash; How can you prevent this from happening?</li>
+                <li><strong>Repair</strong> &mdash; If the worst happens, what can you do to overcome it?</li>
+                <li><strong>Benefits</strong> &mdash; What's worth doing even if you fail?</li>
+                <li><strong>Costs</strong> &mdash; What are the costs of doing nothing?</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Section 3: Get Started -->
+    <section class="section section-3">
+        <div class="section-content">
+            <p class="label">Begin</p>
+            <h2>Ready to get started?</h2>
+            <p>Choose a fear to work through and then follow the steps in order, first by reflecting on the question <em>in italics</em>, then completing the exercise below it.</p>
+            <p class="note">It can be especially helpful to write down your responses to each exercise&mdash;that way you'll have a finished project you can turn to later.</p>
+        </div>
+    </section>
+
+    <!-- Section 4: Name Your Fear -->
+    <section class="section section-4">
+        <div class="section-content">
+            <p class="label">Preparation</p>
+            <h2>Name your fear</h2>
+            <p class="italic">What am I afraid will happen?</p>
+            <div class="exercise">
+                <strong>Exercise</strong>
+                Write down the fear you'd like to work through. Then write down how afraid you are of taking this step, on a scale of 1&ndash;10.
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: Step 1 - Define -->
+    <section class="section section-5">
+        <div class="section-content">
+            <p class="label">Step 1 of 5</p>
+            <h2>Define</h2>
+            <p class="italic">What's the worst that could happen?</p>
+            <div class="exercise">
+                <strong>Exercise</strong>
+                List the potential worst case scenarios that could happen if you do what you fear.
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 6: Step 2 - Prevent -->
+    <section class="section section-6">
+        <div class="section-content">
+            <p class="label">Step 2 of 5</p>
+            <h2>Prevent</h2>
+            <p class="italic">How can I avoid this?</p>
+            <div class="exercise">
+                <strong>Exercise</strong>
+                For every worst case scenario you listed above, write down what you can do to prevent them from happening, or how you can minimize their occurrence.
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 7: Step 3 - Repair -->
+    <section class="section section-7">
+        <div class="section-content">
+            <p class="label">Step 3 of 5</p>
+            <h2>Repair</h2>
+            <p class="italic">If the worst happens, how can I fix it?</p>
+            <div class="exercise">
+                <strong>Exercise</strong>
+                For every worst case scenario listed above, write down what you could do to overcome the experience if it happens. Consider what you can do to fix what's broken or how you can minimize the damage.
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 8: Step 4 - Benefits -->
+    <section class="section section-8">
+        <div class="section-content">
+            <p class="label">Step 4 of 5</p>
+            <h2>Benefits</h2>
+            <p class="italic">What's worth doing even if I fail?</p>
+            <div class="exercise">
+                <strong>Exercise</strong>
+                List some of the benefits of doing what you fear. What might change in your life if you have a full or partial success?
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 9: Step 5 - Costs -->
+    <section class="section section-9">
+        <div class="section-content">
+            <p class="label">Step 5 of 5</p>
+            <h2>Costs</h2>
+            <p class="italic">What are the costs of inaction?</p>
+            <p>Think about the costs of staying in your current situation. Write down what could happen if you don't take action soon:</p>
+            <div class="exercise">
+                <strong>Exercise</strong>
+                <ul class="time-perspectives">
+                    <li>If I do nothing, in 6 months&hellip;</li>
+                    <li>If I do nothing, in one year&hellip;</li>
+                    <li>If I do nothing, in three years&hellip;</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 10: Reflection -->
+    <section class="section section-10">
+        <div class="section-content">
+            <p class="label">Reflect</p>
+            <h2>Reflection</h2>
+            <p>Now that you've completed the exercise, reflect on what you've written. Does the fear seem as scary as it did before, now that you know you can prevent or recover from the worst case scenarios?</p>
+            <p>As you move forward, remember that fear is often in our heads. You'll never know if your fears are well-founded until you face them. Until you take the chance, until you go out and see, you'll always wonder.</p>
+            <div class="quote">
+                <p>&ldquo;We suffer more in imagination than in reality.&rdquo;</p>
+                <cite>&mdash; Seneca</cite>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 11: Thanks -->
+    <section class="section section-11">
+        <div class="section-content">
+            <h2>You made it.</h2>
+            <p>We sincerely hope this guide helped you clarify your fears and find a path forward. If it helped you at all, please consider sharing&mdash;it could help someone you know.</p>
+            <p class="credit">Based on Tim Ferriss's fear-setting exercise. Built with care.</p>
+        </div>
+    </section>
+
+    <script>
+    (function() {
+        // === CANVAS SMOKE PARTICLE SYSTEM ===
+        var canvas = document.getElementById('smoke-canvas');
+        var ctx = canvas.getContext('2d');
+        var W, H;
+        var particles = [];
+        var PARTICLE_COUNT = 220;
+        var SPRITE_SIZE = 80;
+        var smokeOpacity = 1;
+
+        function resize() {
+            W = canvas.width = window.innerWidth;
+            H = canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize, { passive: true });
+
+        // Pre-render a soft radial smoke sprite to an offscreen canvas
+        var sprite = document.createElement('canvas');
+        sprite.width = SPRITE_SIZE;
+        sprite.height = SPRITE_SIZE;
+        var sctx = sprite.getContext('2d');
+        var grad = sctx.createRadialGradient(
+            SPRITE_SIZE / 2, SPRITE_SIZE / 2, 0,
+            SPRITE_SIZE / 2, SPRITE_SIZE / 2, SPRITE_SIZE / 2
+        );
+        grad.addColorStop(0, 'rgba(55, 55, 55, 0.9)');
+        grad.addColorStop(0.3, 'rgba(42, 42, 42, 0.6)');
+        grad.addColorStop(0.6, 'rgba(30, 30, 30, 0.25)');
+        grad.addColorStop(1, 'rgba(20, 20, 20, 0)');
+        sctx.fillStyle = grad;
+        sctx.fillRect(0, 0, SPRITE_SIZE, SPRITE_SIZE);
+
+        function rand(min, max) {
+            return min + Math.random() * (max - min);
+        }
+
+        function gaussRand() {
+            var u = 0, v = 0;
+            while (u === 0) u = Math.random();
+            while (v === 0) v = Math.random();
+            return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+        }
+
+        function createParticle(seed) {
+            var startScale = rand(0.3, 1.0);
+            var moveAngle = rand(0, Math.PI * 2);
+            var speed = rand(0.1, 0.4);
+            var spawnX = W / 2 + gaussRand() * W * 0.22;
+            var spawnY = H / 2 + gaussRand() * H * 0.25;
+            return {
+                x: spawnX,
+                y: spawnY,
+                vx: Math.cos(moveAngle) * speed,
+                vy: Math.sin(moveAngle) * speed,
+                scale: startScale,
+                finalScale: startScale + rand(3, 9),
+                age: seed ? rand(0, 14000) : 0,
+                lifetime: rand(10000, 20000),
+                drift: rand(-0.2, 0.2),
+                driftSpeed: rand(0.0003, 0.0008)
+            };
+        }
+
+        // Initialize particles pre-aged so the screen starts full
+        for (var i = 0; i < PARTICLE_COUNT; i++) {
+            particles.push(createParticle(true));
+        }
+
+        var lastTime = performance.now();
+        var running = true;
+
+        var mouseX = -9999, mouseY = -9999;
+        var mouseVX = 0, mouseVY = 0;
+        var prevMouseX = -9999, prevMouseY = -9999;
+        var mouseRadius = 160;
+
+        document.addEventListener('mousemove', function(e) {
+            mouseVX = e.clientX - prevMouseX;
+            mouseVY = e.clientY - prevMouseY;
+            prevMouseX = mouseX;
+            prevMouseY = mouseY;
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        document.addEventListener('mouseleave', function() {
+            mouseX = -9999;
+            mouseY = -9999;
+        });
+
+        var repulsionEls = document.querySelectorAll('.section-8 .section-content, .section-9 .section-content, .section-10 .section-content');
+        var repulsionZones = [];
+        var repulsionPadding = 60;
+
+        function updateRepulsionZones() {
+            repulsionZones = [];
+            for (var i = 0; i < repulsionEls.length; i++) {
+                var rect = repulsionEls[i].getBoundingClientRect();
+                repulsionZones.push({
+                    cx: rect.left + rect.width / 2,
+                    cy: rect.top + rect.height / 2,
+                    hw: rect.width / 2 + repulsionPadding,
+                    hh: rect.height / 2 + repulsionPadding
+                });
+            }
+        }
+        updateRepulsionZones();
+        window.addEventListener('scroll', updateRepulsionZones, { passive: true });
+        window.addEventListener('resize', updateRepulsionZones, { passive: true });
+
+        function frame(time) {
+            if (!running) return;
+            var dt = Math.min(time - lastTime, 50);
+            lastTime = time;
+
+            mouseVX *= 0.9;
+            mouseVY *= 0.9;
+
+            ctx.clearRect(0, 0, W, H);
+            ctx.globalCompositeOperation = 'source-over';
+
+            for (var i = 0; i < particles.length; i++) {
+                var p = particles[i];
+
+                var frac = p.age / p.lifetime;
+                var driftOffset = Math.sin(p.age * p.driftSpeed) * p.drift;
+                var slowdown = 1 - frac * 0.5;
+
+                var jitterX = (Math.random() - 0.5) * 0.15;
+                var jitterY = (Math.random() - 0.5) * 0.15;
+                p.vx += jitterX * dt * 0.002;
+                p.vy += jitterY * dt * 0.002;
+
+                var dx = p.x - mouseX;
+                var dy = p.y - mouseY;
+                var dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < mouseRadius && dist > 1) {
+                    var proximity = 1 - dist / mouseRadius;
+                    var pushForce = proximity * proximity * 1.5;
+                    var nx = dx / dist;
+                    var ny = dy / dist;
+                    var tx = -ny;
+                    var ty = nx;
+                    var mouseSpeed = Math.sqrt(mouseVX * mouseVX + mouseVY * mouseVY);
+                    var swirlForce = proximity * Math.min(mouseSpeed * 0.14, 2.4);
+                    p.vx += nx * pushForce * 0.5 + tx * swirlForce;
+                    p.vy += ny * pushForce * 0.5 + ty * swirlForce;
+                }
+
+                for (var z = 0; z < repulsionZones.length; z++) {
+                    var zone = repulsionZones[z];
+                    var zdx = p.x - zone.cx;
+                    var zdy = p.y - zone.cy;
+                    var overlapX = zone.hw - Math.abs(zdx);
+                    var overlapY = zone.hh - Math.abs(zdy);
+                    if (overlapX > 0 && overlapY > 0) {
+                        var penetration = Math.min(overlapX, overlapY);
+                        var maxPen = Math.min(zone.hw, zone.hh);
+                        var strength = (penetration / maxPen) * 0.8;
+                        var zdist = Math.sqrt(zdx * zdx + zdy * zdy);
+                        if (zdist > 1) {
+                            p.vx += (zdx / zdist) * strength;
+                            p.vy += (zdy / zdist) * strength;
+                        }
+                    }
+                }
+
+                p.vx *= 0.99;
+                p.vy *= 0.99;
+                p.x += (p.vx * slowdown + driftOffset) * dt * 0.042;
+                p.y += (p.vy * slowdown + Math.cos(p.age * p.driftSpeed * 0.7) * p.drift * 0.4) * dt * 0.042;
+
+                p.age += dt;
+                if (Math.random() < 0.01) {
+                    p.driftSpeed *= rand(0.8, 1.3);
+                }
+                p.scale = p.scale + (p.finalScale - p.scale) * frac;
+
+                var alpha;
+                if (frac < 0.08) {
+                    alpha = frac / 0.08;
+                } else if (frac > 0.65) {
+                    alpha = (1 - frac) / 0.35;
+                } else {
+                    alpha = 1;
+                }
+                alpha *= 0.25 * smokeOpacity;
+
+                if (alpha > 0.001) {
+                    var size = p.scale * SPRITE_SIZE;
+                    ctx.globalAlpha = alpha;
+                    ctx.drawImage(sprite, p.x - size / 2, p.y - size / 2, size, size);
+                }
+
+                // Respawn dead particles
+                if (p.age >= p.lifetime) {
+                    particles[i] = createParticle(false);
+                }
+            }
+
+            ctx.globalAlpha = 1;
+            requestAnimationFrame(frame);
+        }
+
+        requestAnimationFrame(frame);
+
+        // Scroll-based fade: smoke disappears as user scrolls down
+        var vignette = document.getElementById('smoke-vignette');
+
+        function updateSmokeOpacity() {
+            var totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+            var progress = window.scrollY / totalHeight;
+            var fadeStart = 0.65;
+            var fadeEnd = 1.0;
+            if (progress < fadeStart) {
+                smokeOpacity = 1;
+            } else {
+                smokeOpacity = Math.max(0, 1 - ((progress - fadeStart) / (fadeEnd - fadeStart)));
+            }
+
+            vignette.style.opacity = smokeOpacity;
+
+            if (smokeOpacity <= 0 && running) {
+                running = false;
+            } else if (smokeOpacity > 0 && !running) {
+                running = true;
+                lastTime = performance.now();
+                requestAnimationFrame(frame);
+            }
+        }
+        window.addEventListener('scroll', updateSmokeOpacity, { passive: true });
+        updateSmokeOpacity();
+
+        // === SCROLL-TRIGGERED CONTENT FADE-IN ===
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.section-content').forEach(function(el) {
+            observer.observe(el);
+        });
+
+        var firstContent = document.querySelector('.section-1 .section-content');
+        if (firstContent) firstContent.classList.add('visible');
+
+        // Hide scroll hint after scrolling
+        var scrollHint = document.querySelector('.scroll-hint');
+        if (scrollHint) {
+            var hintHidden = false;
+            window.addEventListener('scroll', function() {
+                if (!hintHidden && window.scrollY > 100) {
+                    scrollHint.style.opacity = '0';
+                    scrollHint.style.transition = 'opacity 0.5s ease';
+                    hintHidden = true;
+                }
+            }, { passive: true });
+        }
+    })();
+    </script>
+</body>
+</html>
